@@ -4,9 +4,12 @@ import { PiBookOpenTextBold } from "react-icons/pi";
 import { FiCheckCircle } from "react-icons/fi";
 import { GoPerson } from "react-icons/go";
 import PrimaryButton from '../components/PrimaryButton';
+import Footer from '../components/Footer';
+import Header from '../components/Header';
 export default function Home() {
     return (
     <>
+    <Header/>
         <Hero />
         <section className='px-12 py-10 flex flex-col gap-4'> 
             <div className='font-bold text-2xl text-center'>Everything you need to succeed</div> 
@@ -51,6 +54,7 @@ export default function Home() {
             </div>
                 <PrimaryButton label={'Create Your Free Account'} fn={() => console.log(`clicked`)} />
         </section>
+        <Footer/>
     </>
     );
 }
