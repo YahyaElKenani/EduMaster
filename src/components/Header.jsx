@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import { IoMenuOutline } from "react-icons/io5";
 import Navbar from "./Navbar";
 import { RiCloseLargeLine } from "react-icons/ri";
 import { useLocation } from "react-router-dom";
+import { AuthContext } from '../context/AuthContext';
 export default function Header() { 
     const [active, setActive] = useState();
     const [showNav, setShowNav] = useState(false);
     const location = useLocation();
+    const { isAuthenticated, logout } = useContext(AuthContext);
     useEffect(() => { 
         if (location.pathname === '/') {
             setActive('home');
@@ -35,6 +37,13 @@ export default function Header() {
                     : 
                     <IoMenuOutline/>   
                 }
+            </div>
+            <div className="hidden md:flex items-center gap-4">
+                {isAuthenticated ? (
+                    <button className="text-sm text-[var(--primary)]" onClick={logout}>Logout</button>
+                ) : (
+                    <a href="/login" className="text-sm text-[var(--primary)]">Login</a>
+                )}
             </div>
             { 
                 showNav &&
