@@ -19,7 +19,7 @@ export default function Forget(){
     setSuccess('');
 
     try {
-      const res = await fetch('https://edu-master-delta.vercel.app/user/forgot-password', {
+      const res = await fetch('https://edu-master-psi.vercel.app/user/forgot-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -13,7 +13,7 @@ export default function Lessons() {
     const [filteredLessons, setFilteredLessons] = useState([]); 
     const [loading, setLoading] = useState(true);
     const getGrade = async () => { 
-        const response = await fetch ('https://edu-master-delta.vercel.app/user/', { 
+        const response = await fetch ('https://edu-master-psi.vercel.app/user/', { 
             headers: { 
                 token: token
             }
@@ -23,7 +23,7 @@ export default function Lessons() {
     }
 
     const getLessons = async () => { 
-        const response = await fetch('https://edu-master-delta.vercel.app/lesson/?isPaid=true&sortBy=scheduledDate&sortOrder=asc&scheduledAfter=2025-07-01', {
+        const response = await fetch('https://edu-master-psi.vercel.app/lesson/?isPaid=true&sortBy=scheduledDate&sortOrder=asc&scheduledAfter=2025-07-01', {
             headers: { 
                 token: token
             }

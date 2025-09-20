@@ -31,7 +31,7 @@ export function AuthProvider({ children }) {
 
   const login = async ({ email, password }) => {
     // ...existing code...
-    const url =  'https://edu-master-delta.vercel.app/auth/login';
+    const url =  'https://edu-master-psi.vercel.app/auth/login';
     try {
       const res = await fetch(url, {
         method: 'POST',

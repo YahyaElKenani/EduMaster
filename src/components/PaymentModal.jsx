@@ -1,10 +1,8 @@
-import { useNavigate } from "react-router-dom";
 import PrimaryButton from "./PrimaryButton";
 import { useState } from "react";
 
 export default function PaymentModal({isOpen, token, price, title, description, setIsOpen, lessonId}) { 
     const [buying, setBuying] = useState(false);
-    const navigate = useNavigate();
     const buyLesson = async () => { 
         setBuying(true);
         const response = await fetch(`https://edu-master-delta.vercel.app/lesson/pay/${lessonId}`, {
@@ -18,7 +16,7 @@ export default function PaymentModal({isOpen, token, price, title, description, 
             window.open(result?.paymentUrl);
             setIsOpen(false);
         } else { 
-            navigate('/payment-failed'); 
+            window.alert('Payment Canceled');
         }
         setBuying(false);
     }

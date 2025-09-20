@@ -22,7 +22,6 @@ export default function LessonCard({title, description, tags, price, token, less
             </div>
             {/* <div className="bg-[var(--primary)] text-white flex justify-center items-center h-fit min-w-[100px] p-2 rounded-2xl">{price} $</div> */}
             <PrimaryButton label={`${price} $`} fn={() => setIsOpen(true)}/>
-            
         </div>
         </>
     )

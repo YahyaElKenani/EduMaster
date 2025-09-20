@@ -21,7 +21,7 @@ export default function SignupForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("https://edu-master-delta.vercel.app/auth/signup", {
+      const res = await fetch("https://edu-master-psi.vercel.app/auth/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
