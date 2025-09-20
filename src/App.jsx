@@ -7,8 +7,6 @@ import { useContext } from 'react';
 import SignupForm from './pages/signup';
 import Forget from './pages/forget';
 import Lessons from './pages/Lessons';
-import VerifyPayment from './pages/VerifyPayment';
-import PaymentFailed from './pages/PaymentFailed';
 
 function ProtectedRoute({ children }) {
   const { isAuthenticated, loading } = useContext(AuthContext);
@@ -27,8 +25,6 @@ function App() {
           <Route path='/forget' element={<Forget/>} />
           <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
           <Route path="/lessons" element={<ProtectedRoute><Lessons /></ProtectedRoute>} />
-          <Route path="/verify-payment" element={<ProtectedRoute><VerifyPayment /></ProtectedRoute>} />
-          <Route path="/payment-failed" element={<ProtectedRoute><PaymentFailed /></ProtectedRoute>} />
         </Routes>
       </AuthProvider>
     </Router>
