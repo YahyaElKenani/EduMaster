@@ -7,6 +7,16 @@ import { useContext } from 'react';
 import SignupForm from './pages/signup';
 import Forget from './pages/forget';
 import Lessons from './pages/Lessons';
+import Dashboard from './pages/Dashboard';
+import SuperDashboard from './pages/SuperDashboard';
+import CreateAdmin from './pages/CreateAdmin';
+import ManageUser from './pages/ManageUser';
+import ManageExam from './pages/ManageExam';
+import ManageQuestion from './pages/ManageQuestion';
+import CreateQuestion from './pages/CreateQuestion';
+import ManageLesson from './pages/ManageLesson';
+import CreateExam from './pages/CreateExam';
+import PurchasedLessons from './pages/PurchasedLessons';
 
 function ProtectedRoute({ children }) {
   const { isAuthenticated, loading } = useContext(AuthContext);
@@ -25,6 +35,16 @@ function App() {
           <Route path='/forget' element={<Forget/>} />
           <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
           <Route path="/lessons" element={<ProtectedRoute><Lessons /></ProtectedRoute>} />
+          <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />  
+          <Route path="/super-dashboard" element={<ProtectedRoute><SuperDashboard /></ProtectedRoute>} />  
+          <Route path="/create-admin" element={<ProtectedRoute><CreateAdmin /></ProtectedRoute>} />  
+          <Route path="/manage-user" element={<ProtectedRoute><ManageUser /></ProtectedRoute>} />  
+          <Route path="/manage-exam" element={<ProtectedRoute><ManageExam /></ProtectedRoute>} />  
+          <Route path="/manage-question" element={<ProtectedRoute><ManageQuestion /></ProtectedRoute>} />  
+          <Route path="/create-question" element={<ProtectedRoute><CreateQuestion /></ProtectedRoute>} />  
+          <Route path="/manage-lesson" element={<ProtectedRoute><ManageLesson /></ProtectedRoute>} />  
+          <Route path="/create-exam" element={<ProtectedRoute><CreateExam /></ProtectedRoute>} />  
+          <Route path="/purchased-lessons" element={<ProtectedRoute><PurchasedLessons /></ProtectedRoute>} />  
         </Routes>
       </AuthProvider>
     </Router>

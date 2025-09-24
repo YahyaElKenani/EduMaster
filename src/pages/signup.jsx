@@ -54,7 +54,7 @@ export default function SignupForm() {
           <div className="text-gray-50 bg-[var(--primary)] p-3 w-15 h-15 flex items-center justify-center rounded-lg">
             <GiGraduateCap className="text-white w-10 h-10" />
           </div>
-          <div className="text-lg font-bold">EduPortal</div>
+          <div className="text-lg font-bold">EduMaster</div>
         </div>
 
         <h1 className="text-3xl font-bold mb-1">Create your account</h1>

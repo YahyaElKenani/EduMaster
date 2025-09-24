@@ -27,7 +27,7 @@ export default function Header() {
                 onClick={() => {isAuthenticated ? logout : navigate('/login')}}
                 >
                     {isAuthenticated ? (
-                        <button className="text-sm cursor-pointer flex items-center gap-2">
+                        <button className="text-sm cursor-pointer flex items-center gap-2" onClick={logout}>
                             <CiLogout size={18}/>
                             Logout
                         </button>
@@ -51,7 +51,7 @@ export default function Header() {
                 <div className="md:hidden flex flex-col items-center">
                     <Navbar className='md:hidden flex flex-col absolute w-40 md:w-fit right-3 top-20 z-10' /> 
                     <div className="md:hidden flex items-center gap-4 hover:text-black text-white border-1
-                    border-red-500 bg-red-500 p-3 hover:bg-transparent rounded-xl cursor-pointer transition-all duration-200 ease-linear absolute top-95 right-11"
+                    border-red-500 bg-red-500 p-3 hover:bg-transparent rounded-xl cursor-pointer transition-all duration-200 ease-linear absolute top-110 right-11"
                     onClick={() => {isAuthenticated ? logout : navigate('/login')}}
                     >
                     {isAuthenticated ? (

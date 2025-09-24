@@ -31,7 +31,7 @@ export default function Login() {
           <div className="text-gray-50 bg-[var(--primary)] p-3 w-15 h-15 flex items-center justify-center rounded-lg">
             <GiGraduateCap className="text-white w-10 h-10" />
           </div>
-          <div className="text-lg font-bold">EduPortal</div>
+          <div className="text-lg font-bold">EduMaster</div>
         </div>
         <h1 className="text-3xl font-bold mb-2">Welcome back</h1>
         <p className="text-sm text-gray-500 mb-6">Log in to continue your learning journey</p>

@@ -14,4 +14,4 @@ body {
 
 .hover-tab { 
   @apply hover:text-gray-50 hover:bg-[var(--primary)] hover:rounded-4xl transition-all duration-300 ease-linear cursor-pointer;
-}
+} 

@@ -2,8 +2,11 @@ import { useState } from "react";
 import PaymentModal from "./PaymentModal";
 import PrimaryButton from "./PrimaryButton";
 
-export default function LessonCard({title, description, tags, price, token, lessonId}) { 
+export default function LessonCard({title, description, tags, url, price, token, lessonId}) { 
     const [isOpen, setIsOpen] = useState(false);
+    const goToVideo = () => { 
+        window.open(url);
+    }
     return ( 
         <> 
         <PaymentModal isOpen={isOpen} title={title} description={description} price={price} token={token} setIsOpen={setIsOpen} lessonId={lessonId}/>
@@ -20,8 +23,20 @@ export default function LessonCard({title, description, tags, price, token, less
                     }
                 </div>
             </div>
-            {/* <div className="bg-[var(--primary)] text-white flex justify-center items-center h-fit min-w-[100px] p-2 rounded-2xl">{price} $</div> */}
-            <PrimaryButton label={`${price} $`} fn={() => setIsOpen(true)}/>
+            { 
+                price > 0 && 
+                <PrimaryButton label={`${price} EGP`} fn={() => setIsOpen(true)}/>
+            }
+
+            { 
+                price === 0 && 
+                <PrimaryButton label={`Free`} fn={() => setIsOpen(true)}/>
+            }
+
+            { 
+                url && 
+                <PrimaryButton label={'Open Video'} fn={() => goToVideo()} />
+            }
         </div>
         </>
     )

@@ -5,7 +5,7 @@ export default function PaymentModal({isOpen, token, price, title, description, 
     const [buying, setBuying] = useState(false);
     const buyLesson = async () => { 
         setBuying(true);
-        const response = await fetch(`https://edu-master-delta.vercel.app/lesson/pay/${lessonId}`, {
+        const response = await fetch(`https://edu-master-psi.vercel.app/lesson/pay/${lessonId}`, {
             method: 'POST',
             headers: {
                 token: token,
