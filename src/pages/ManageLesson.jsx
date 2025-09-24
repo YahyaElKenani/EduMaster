@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import { MdManageAccounts } from "react-icons/md";
@@ -6,12 +6,15 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/context";
 import { FaRegTrashAlt } from "react-icons/fa";
 import PrimaryButton from "../components/PrimaryButton";
+import Toast from "../components/Toast";
+import { Bounce, toast } from "react-toastify";
 const inputStyles = `mt-1 mb-4 w-full p-3 rounded-xl bg-gray-100`
 export default function ManageLesson() { 
     const location = useLocation();
     const { lesson } = location.state || null;
     const [newLesson, setNewLesson] = useState({title: '', description: '', classLevel: 'Grade 1 Secondary', video: '', price: ''})
     const { token } = useContext(AuthContext);
+    const navigate = useNavigate();
     useEffect(() => {
         if (lesson) { 
             setNewLesson({
@@ -35,7 +38,34 @@ export default function ManageLesson() {
             }
         });
         const result = await res.json();
-        console.log(result);
+        if (result.success) { 
+            toast(`${result?.message}`, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+            });
+        } else { 
+            toast(`${result?.message}`, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+            });
+        }
+        setTimeout(() => {
+            navigate('/dashboard')
+        }, 1500);
     } 
 
     const deleteLesson = async () => { 
@@ -51,6 +81,7 @@ export default function ManageLesson() {
         <> 
             <Header />
             <main>
+                <Toast />
                 <div className="bg-[var(--primary-bg)] p-12 flex flex-col items-center md:flex-row md:justify-between w-full gap-4"> 
                         <div className="w-full flex items-center justify-between"> 
                             <div className="flex items-center gap-3"> 

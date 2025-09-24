@@ -1,10 +1,12 @@
 import { useContext, useState } from "react";
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import { MdManageAccounts } from "react-icons/md";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import PrimaryButton from "../components/PrimaryButton";
 import { AuthContext } from "../context/context";
+import Toast from "../components/Toast";
+import { Bounce, toast } from "react-toastify";
 const inputStyles = `mt-1 mb-4 w-full p-3 rounded-xl bg-gray-100`
 export default function CreateQuestion() { 
     const location = useLocation();
@@ -12,6 +14,7 @@ export default function CreateQuestion() {
     const [question, setQuestion] = useState({text: '', type: 'true-false', options: [], correctAnswer: '', points: ''})
     const { examId } = location.state || null;
     const { token } = useContext(AuthContext);
+    const navigate = useNavigate();
     const createQuestion = async (e) => {
         setLoading(true);
         e.preventDefault(); 
@@ -36,14 +39,27 @@ export default function CreateQuestion() {
             }
         })
         const result = await res.json();
-        if (result) { 
-            setLoading(false)
-        }
+        setLoading(false);
+            toast(`${result?.message}`, { 
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        })
+        setTimeout(() => {
+            navigate('/dashboard');
+        }, 2000);
     }
     return ( 
         <>
             <Header />
             <main>
+                <Toast />
                 <div className="bg-[var(--primary-bg)] p-12 flex flex-col items-center md:flex-row md:justify-between w-full gap-4"> 
                     <div className="w-full flex items-center justify-between"> 
                         <div className="flex items-center gap-3"> 

@@ -6,6 +6,7 @@ import { AuthContext } from "../context/context";
 import LessonCard from "../components/LessonCard";
 export default function PurchasedLessons() { 
     const [lessons, setLessons] = useState([]);
+    const [filteredLessons, setFilteredLessons] = useState([]);
     const { token } = useContext(AuthContext);
     const getPurchasedLessons = async () => { 
         const res = await fetch ('https://edu-master-psi.vercel.app/lesson/my/purchased', {
@@ -20,6 +21,13 @@ export default function PurchasedLessons() {
     useEffect(() => {
         getPurchasedLessons();
     }, [])
+
+    useEffect(() => {
+        if (lessons) { 
+            const purchasedLessons = lessons.filter((item) => item !== null);
+            setFilteredLessons(purchasedLessons);
+        }
+    }, [lessons])
     return (
         <>
             <Header />
@@ -32,9 +40,9 @@ export default function PurchasedLessons() {
                 </div>
                 <div className="w-full flex flex-col gap-4 items-center p-12"> 
                     {
-                        lessons && 
-                        lessons?.map((lesson) => (
-                            <LessonCard title={lesson?.title} description={lesson?.description} tags={lesson?.tags} url={lesson?.video}/> 
+                        filteredLessons && 
+                        filteredLessons?.map((lesson) => (
+                            <LessonCard key={lesson?._id} title={lesson?.title} description={lesson?.description} tags={lesson?.tags} url={lesson?.video}/> 
                         ))
                     }
                 </div>

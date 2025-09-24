@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import { AuthContext } from "../context/context";
 import LoadingSpinner from "../components/Loading";
 import Header from "../components/Header";
@@ -7,6 +7,8 @@ import Footer from "../components/Footer";
 import { MdManageAccounts } from "react-icons/md";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { FaRegSave } from "react-icons/fa";
+import Toast from "../components/Toast";
+import { Bounce, toast } from "react-toastify";
 const inputStyles = `mt-1 mb-4 w-full p-3 rounded-xl bg-gray-100`
 export default function ManageQuestion() { 
     const [loading, setLoading] = useState(true);
@@ -15,6 +17,7 @@ export default function ManageQuestion() {
     const location = useLocation();
     const { id, examId } = location.state || null;
     const { token } = useContext(AuthContext);
+    const navigate = useNavigate();
     const getQuestion = async () => { 
         const res = await fetch(`https://edu-master-psi.vercel.app/question/get/${id}`, {
             headers: {
@@ -42,12 +45,27 @@ export default function ManageQuestion() {
     }, [question])
 
     const deleteQuestion = async () => {
-        await fetch(`https://edu-master-psi.vercel.app/question/${id}`, {
+        const res = await fetch(`https://edu-master-psi.vercel.app/question/${id}`, {
             method: 'DELETE',
             headers: { 
                 token: token 
             }
         })
+        const result = await res.json();
+        toast(`${result?.message}`, { 
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        })
+        setTimeout(() => {
+            navigate('/dashboard');
+        }, 2000);
     }
 
     const handleSubmit = async (e) => { 
@@ -71,7 +89,20 @@ export default function ManageQuestion() {
             }
         })
         const result = await res.json();
-        console.log(result);
+        toast(`${result?.message}`, { 
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        })
+        setTimeout(() => {
+            navigate('/dashboard');
+        }, 2000);
     }
     return ( 
         <> 
@@ -82,6 +113,7 @@ export default function ManageQuestion() {
                 <>
                     <Header /> 
                     <main> 
+                        <Toast />
                         <div className="bg-[var(--primary-bg)] p-12 flex flex-col items-center md:flex-row md:justify-between w-full gap-4"> 
                             <div className="w-full flex items-center justify-between"> 
                                 <div className="flex items-center gap-3"> 

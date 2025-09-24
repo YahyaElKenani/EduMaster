@@ -21,10 +21,11 @@ export default function PaymentModal({isOpen, token, price, title, description, 
         setBuying(false);
     }
     return ( 
-        <> 
+        <>
             {
                 isOpen && 
-                <div className={`fixed z-50 bg-black/40 min-h-[100dvh] w-full flex justify-center items-center top-0`}>
+                <div
+                className={`fixed z-50 bg-black/40 min-h-[100dvh] w-full flex justify-center items-center top-0`}>
                     <div className="w-1/2 h-1/2 bg-white border-1 border-[var(--border-color)] rounded-2xl p-12 ">
                         <div className="flex flex-col gap-2">
                             <h1 className="text-2xl font-bold">{title}</h1>
@@ -42,6 +43,6 @@ export default function PaymentModal({isOpen, token, price, title, description, 
                     </div>  
                 </div>
             }     
-        </>
+            </>
     )
 }

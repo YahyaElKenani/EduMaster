@@ -3,9 +3,10 @@ import PrimaryButton from "../components/PrimaryButton"
 import { GiGraduateCap } from "react-icons/gi";
 import { AuthContext } from "../context/context";
 import { useNavigate } from "react-router-dom";
+import Toast from "../components/Toast";
+import { Bounce, toast } from "react-toastify";
 export default function CreateAdmin() {
     const [credentials, setCredentials] = useState({name: '', phoneNumber: '', email: '', password: '', cpassword: ''});
-    const [error, setError] = useState(null);
     const [submitting, setSubmitting] = useState(false);
     const {token} = useContext(AuthContext);
     const navigate = useNavigate();
@@ -28,15 +29,24 @@ export default function CreateAdmin() {
         })
         const result = await res.json(); 
         setSubmitting(false);
-        if (result.success) { 
+            toast(`${result?.message}`, { 
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        })
+        setTimeout(() => {
             navigate('/super-dashboard');
-        } else { 
-            setError(result.message || 'Login failed')
-        }
-        console.log(result);
+        }, 2000);
     }
     return ( 
         <div className="min-h-[100dvh] bg-[var(--primary-bg)] flex items-center justify-center"> 
+        <Toast />
             <form onSubmit={handleSubmit} className="bg-white rounded-2xl p-8 w-[420px] shadow-xl">
                 <div className="flex items-center gap-3 mb-4">
                     <div className="text-gray-50 bg-[var(--primary)] p-3 w-15 h-15 flex items-center justify-center rounded-lg">
@@ -68,13 +78,9 @@ export default function CreateAdmin() {
                 <input type="password" className="mt-1 mb-4 w-full p-3 rounded-xl bg-gray-100" placeholder="Confirm your password"
                 onChange={(e) => setCredentials((prevState) => ({...prevState, cpassword: e.target.value}))}
                 />
-                
-                {error && <div className="text-red-600 mb-3">{error}</div>}
-
                 <div className="flex items-center justify-center"> 
                     <PrimaryButton label={submitting ? 'Creating...' : 'Create admin'} />
                 </div>
-
             </form>
         </div>
     )

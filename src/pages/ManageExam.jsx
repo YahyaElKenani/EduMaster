@@ -9,6 +9,8 @@ import { GrEdit } from "react-icons/gr";
 import { FaPlus } from "react-icons/fa";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Toast from "../components/Toast";
+import { Bounce, toast } from "react-toastify";
 const inputStyles = `mt-1 mb-4 w-full p-3 rounded-xl bg-gray-100`
 export default function ManageExam() { 
     const [exam, setExam] = useState();
@@ -17,6 +19,7 @@ export default function ManageExam() {
     const [newExam, setNewExam] = useState({
         title: '', description: '', duration: 0, classLevel: '', isPublished: true, startDate: '', endDate: ''
     });
+    const [scores, setScores] = useState([]);
     const navigate = useNavigate();
     const location = useLocation();
     const {id} = location.state || null;
@@ -53,6 +56,19 @@ export default function ManageExam() {
         }
     }, [exam])
 
+    const getExamScores = async () => { 
+        const res = await fetch(`https://edu-master-psi.vercel.app/studentExam/exams/${id}`, {
+            headers: {
+                token: token
+            }
+        })
+        const result = await res.json();
+        console.log(result);
+        setScores(result?.data);
+    }
+
+    useEffect(() => {getExamScores()}, []);
+
     const handleExamSubmit = async (e) => { 
         e.preventDefault();
         console.log(JSON.stringify(newExam));
@@ -65,7 +81,20 @@ export default function ManageExam() {
             }
         })
         const result = await res.json();
-        console.log(result);
+        toast(`${result?.message}`, { 
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+        })
+        setTimeout(() => {
+            navigate('/dashboard');
+        }, 2000);
     }
 
     const handleQuestionUpdate = (questionId, id) => { 
@@ -73,12 +102,27 @@ export default function ManageExam() {
     }
 
     const deleteQuestion = async () => {
-        await fetch(`https://edu-master-psi.vercel.app/question/${id}`, {
+        const res = await fetch(`https://edu-master-psi.vercel.app/question/${id}`, {
             method: 'DELETE',
             headers: { 
                 token: token 
             }
         })
+        const result = await res.json();
+        toast(`${result?.message}`, { 
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+        })
+        setTimeout(() => {
+            navigate('/dashboard');
+        }, 2000);
     }
 
     const navigateToCreateQuestion = () => { 
@@ -86,12 +130,27 @@ export default function ManageExam() {
     }
 
     const deleteExam = async () => { 
-        await fetch(`https://edu-master-psi.vercel.app/exam/${id}`, {
+        const res = await fetch(`https://edu-master-psi.vercel.app/exam/${id}`, {
             method: 'DELETE', 
             headers: { 
                 token: token
             }
         });
+        const result = await res.json();
+        toast(`${result?.message}`, { 
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+        })
+        setTimeout(() => {
+            navigate('/dashboard');
+        }, 2000);
     }
     
     return ( 
@@ -103,11 +162,15 @@ export default function ManageExam() {
                 <> 
                     <Header /> 
                     <main>
+                        <Toast />
                         <div className="bg-[var(--primary-bg)] p-12 flex flex-col items-center md:flex-row md:justify-between w-full gap-4"> 
                             <div className="w-full flex items-center justify-between"> 
                                 <div className="flex items-center gap-3"> 
                                     <MdManageAccounts size={24}/>
-                                    <h1 className="text-2xl font-bold">Manage Exam</h1>
+                                    <div> 
+                                        <h1 className="text-2xl font-bold">Manage Exam</h1>
+                                        <h3 className="text-md text-black/40">View, edit, delete, and show scores for exams</h3>
+                                    </div>
                                 </div>
                                 <div className="flex items-center gap-3"> 
                                     <button className="p-2 bg-red-500 text-white rounded-xl hover:bg-red-700 
@@ -242,6 +305,38 @@ export default function ManageExam() {
                                     </div>
                                 ))
                             }
+                        </div>
+                        <div className="overflow-x-auto rounded-xl shadow-md w-[50dvw]">
+                            <table className="min-w-full text-center text-sm md:text-base">
+                                <thead className="bg-[var(--border-color)] hidden md:table-header-group">
+                                    <tr>
+                                        <th className="p-3">Student</th>
+                                        <th className="p-3">Score</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="bg-white divide-y divide-[var(--border-color)]"> 
+                                    { 
+                                        scores && 
+                                        scores.map((score) => (
+                                            <tr
+                                            key={score?._id}
+                                            className="block md:table-row hover:bg-black/10 transition-all duration-200 ease-linear cursor-pointer"> 
+                                                <td className="md:table-cell p-3 w-full md:w-1/3 text-lg flex gap-1 flex-col">
+                                                    <span className="font-semibold md:hidden">Student: </span>
+                                                    <div className="text-sm md:text-lg">
+                                                        {score?.student?.fullName}
+                                                    </div>
+                                                </td>
+
+                                                <td className="flex md:table-cell p-3 w-full flex-col gap-1 md:w-1/4 text-lg">
+                                                    <span className="font-semibold md:hidden">Class: </span>
+                                                    {+score?.score}
+                                                </td>
+                                            </tr>
+                                        ))
+                                    }
+                                </tbody>
+                            </table>
                         </div>
                         </div>
                     </main>

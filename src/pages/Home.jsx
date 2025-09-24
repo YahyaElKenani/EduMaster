@@ -43,8 +43,8 @@ export default function Home() {
             description={'Trusted by educators to streamline learning across classes and grades'}
             />
             <HomeCard 
-            title={'Built for Schools'}
-            description={'Trusted by educators to streamline learning across classes and grades'}
+            title={'Accessible Anywhere'}
+            description={'Use EduMaster on any device. Your progress syncs seamlessly'}
             />
         </section>
         <section className='flex justify-center items-center p-12 gap-10 flex-wrap'> 

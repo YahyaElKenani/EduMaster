@@ -4,13 +4,14 @@ import Header from "../components/Header";
 import { AuthContext } from "../context/context";
 import { PiBookOpenTextBold } from "react-icons/pi";
 import LessonCard from "../components/LessonCard";
-import { HashLoader } from "react-spinners";
 import LoadingSpinner from "../components/Loading";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { MdCloudOff } from "react-icons/md";
 export default function Lessons() { 
     const {token} = useContext(AuthContext);
     const [lessons, setLessons] = useState(null);
     const [grade, setGrade] = useState();
+    const [role, setRole] = useState();
     const [search, setSearch] = useState('');
     const [filteredLessons, setFilteredLessons] = useState([]); 
     const [loading, setLoading] = useState(true);
@@ -23,6 +24,7 @@ export default function Lessons() {
         })
         const result = await response.json();
         setGrade(result?.data?.classLevel);
+        setRole(result?.data?.role);
     }
 
     const getLessons = async () => { 
@@ -40,8 +42,8 @@ export default function Lessons() {
         setFilteredLessons(searchResult);
     }
     useEffect(() => {
-        getLessons();
-        getGrade();
+            getLessons();
+            getGrade();
     }, [])
 
     useEffect(() => {
@@ -51,10 +53,10 @@ export default function Lessons() {
     }, [search, lessons]) 
 
     useEffect(() => {
-        if (lessons && grade) { 
+        if (lessons && grade || role === 'admin' || role === 'super-admin') { 
             setLoading(false);
         }
-    }, [lessons, grade])
+    }, [lessons, grade, role])
     return ( 
         <div className="flex flex-col min-h-screen"> 
             <Header />
@@ -64,6 +66,9 @@ export default function Lessons() {
                         <LoadingSpinner />
                         : 
                         <> 
+                        { 
+                            role === 'user' ? 
+                            <> 
                             <div className="bg-[var(--primary-bg)] p-12 flex flex-col items-center md:flex-row md:justify-between w-full gap-4"> 
                                 <div className="flex items-center gap-3">
                                     <PiBookOpenTextBold size={24}/>
@@ -112,6 +117,14 @@ export default function Lessons() {
                                     }
                                 </div>
                             </div>
+                            </>
+                            :
+                            <div className="flex flex-col gap-3 w-full min-h-[80dvh] items-center justify-center">
+                                <MdCloudOff size={38}/> 
+                                <div className="text-2xl font-bold">This is page is made for users!</div>
+                                <div>Show lessons from <Link to={'/dashboard'} className="text-[var(--primary)] font-bold">Dashboard</Link></div>
+                            </div>
+                        }
                         </>
                     }
                 </div>
