@@ -52,7 +52,7 @@ export default function Home() {
                 <div className='font-bold text-2xl'>Ready to begin your learning journey?</div>
                 <div className='text-black/40'>Join thousands of students improving their skills every day with EduMaster</div>
             </div>
-                <PrimaryButton label={'Create Your Free Account'} fn={() => console.log(`clicked`)} />
+                <PrimaryButton label={'Create Your Free Account'}/>
         </section>
         <Footer/>
     </>

@@ -30,7 +30,6 @@ export default function ManageQuestion() {
     }
 
     useEffect(() => {getQuestion()}, [])
-    useEffect(() => {console.log(location.state);}, [])
     useEffect(() => {
         if (question) { 
             setNewQuestion({

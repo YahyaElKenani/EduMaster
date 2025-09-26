@@ -69,13 +69,11 @@ export default function ManageLesson() {
     } 
 
     const deleteLesson = async () => { 
-        const res = await fetch(`https://edu-master-psi.vercel.app/lesson/${lesson?._id}`, {
+        await fetch(`https://edu-master-psi.vercel.app/lesson/${lesson?._id}`, {
             headers: {
                 token: token
             }
         });
-        const result = await res.json();
-        console.log(result);
     }
     return ( 
         <> 

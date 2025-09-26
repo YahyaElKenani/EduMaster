@@ -32,19 +32,16 @@ export default function Dashboard() {
     const getUsers = async () => {
         const res = await fetchUrl('https://edu-master-psi.vercel.app/admin/all-user');
         setUsers(res?.data);
-        console.log(res);
     }
 
     const getLessons = async () => { 
         const res = await fetchUrl('https://edu-master-psi.vercel.app/lesson/?classLevel=Grade 1 Secondary');
         setLessons(res?.data);
-        console.log(res);
     }
 
     const getExams = async () => { 
         const res = await fetchUrl('https://edu-master-psi.vercel.app/exam');
         setExams(res?.data);
-        console.log(res);
     }
 
     const navigateToUserPage = (user) => { 

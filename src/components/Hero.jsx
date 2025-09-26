@@ -10,7 +10,7 @@ export default function Hero() {
                 <h2 className="text-black/50"> 
                     Engaging lessons, comperhensive exams, and a personalized profile to track your growth. Learn at your pace with tools trusted by schools. 
                 </h2>
-                <PrimaryButton label={'Start Learning Now'} fn={() => console.log('clicked')} className={'self-center md:self-auto'}/>
+                <PrimaryButton label={'Start Learning Now'} className={'self-center md:self-auto'}/>
             </div>
             <img src={HeroImg} alt="hero-thumbnail" className="rounded-2xl w-1/3 object-cover min-w-[250px] max-h-[500px]"/>
         </section>

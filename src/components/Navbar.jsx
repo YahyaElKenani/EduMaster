@@ -31,7 +31,6 @@ export default function Navbar({className}) {
             setActive(location.pathname.slice(1).toLowerCase());
         }
     }, [location])
-    useEffect(() => {console.log(role)}, [role]);
     useEffect(() => {
         if (role === 'admin') { 
             setTabs((prevState) => [...prevState, {tabName: 'Dashboard', href: 'dashboard'}])

@@ -34,9 +34,8 @@ export default function ManageExam() {
         setExam(result?.data);
         setLoading(false);
     }
-    useEffect(() => {getExam(); console.log(id);}, [])
+    useEffect(() => {getExam();}, [])
     useEffect(() => {
-        console.log(exam);
     }, [exam])
     useEffect(() => {
         if (exam) { 
@@ -63,7 +62,6 @@ export default function ManageExam() {
             }
         })
         const result = await res.json();
-        console.log(result);
         setScores(result?.data);
     }
 
@@ -71,7 +69,6 @@ export default function ManageExam() {
 
     const handleExamSubmit = async (e) => { 
         e.preventDefault();
-        console.log(JSON.stringify(newExam));
         const res = await fetch(`https://edu-master-psi.vercel.app/exam/${id}`, {
             method: 'PUT', 
             body: JSON.stringify(newExam), 

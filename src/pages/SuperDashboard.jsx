@@ -45,11 +45,6 @@ export default function SuperDashboard() {
     }, [])
 
     useEffect(() => {
-        console.log(admins);
-        console.log(users);
-    }, [users, admins])
-
-    useEffect(() => {
         if (users && admins) { 
             if (filter === 'All') { 
                 setFilteredItems([...users, ...admins]);

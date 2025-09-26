@@ -29,7 +29,6 @@ export default function CreateQuestion() {
         if (question.type === 'true-false') { 
             body.options = ['True', 'False'];
         }
-        console.log(JSON.stringify(body));
         const res = await fetch('https://edu-master-psi.vercel.app/question', {
             method: 'POST',
             body: JSON.stringify(body),
